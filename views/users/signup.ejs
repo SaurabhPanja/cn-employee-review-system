@@ -1,0 +1,42 @@
+<%- include('../partials/header') %>
+<form action="/users/signup" method="post" class="max-w-500 m-auto mt-5">
+  <h1>Sign up</h1>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input
+      name="name"
+      type="text"
+      class="form-control"
+      id="name"
+      placeholder="Enter name"
+      required
+    />
+  </div>
+  <div class="form-group mt-2">
+    <label for="email">Email address</label>
+    <input
+      name="email"
+      type="email"
+      class="form-control"
+      id="email"
+      placeholder="Enter email"
+      required
+    />
+  </div>
+  <div class="form-group mt-2">
+    <label for="password">Password</label>
+    <input
+      name="password"
+      type="password"
+      class="form-control"
+      id="password"
+      placeholder="Password"
+      required
+    />
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Submit</button>
+  <p class="mt-2">Already a user? 
+    <a href="/users/login">Login</a>
+  </p>
+</form>
+<%- include("../partials/footer") %>

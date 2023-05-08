@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+  <h1 class="text-center">Students</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">College</th>
+        <th scope="col">Placement Status</th>
+        <th scope="col">DSA Final Score</th>
+        <th scope="col">WebD Final Score</th>
+        <th scope="col">React Final Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% students.forEach((student) => { %>
+      <tr>
+        <td><%= student.name %></td>
+        <td><%= student.college %></td>
+        <td><%= student.placementStatus %></td>
+        <td><%= student.dsaFinalScore %></td>
+        <td><%= student.webdFinalScore %></td>
+        <td><%= student.reactFinalScore %></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<%- include("../partials/footer") %>

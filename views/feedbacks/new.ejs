@@ -1,0 +1,15 @@
+<%- include('../partials/header') %>
+<form action="/feedbacks" method="post" class="max-w-500 m-auto mt-5">
+  <h1>New feedback</h1>
+  <div class="form-group mt-2">
+    <label for="feedback-text">Write you feedback here.</label>
+    <textarea
+      name="feedback-text"
+      class="form-control"
+      required
+    ></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary mt-3">Submit</button>
+</form>
+<%- include("../partials/footer") %>

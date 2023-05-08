@@ -1,0 +1,31 @@
+<%- include('../partials/header') %>
+<form action="/performanceReviews/<%= review._id %>" method="post" class="max-w-500 m-auto mt-5">
+  <h1>Create a performace Review</h1>
+  <div class="form-group mt-2">
+    <label for="review-for">Feedback for</label>
+    <select name="review-for" class="form-control" required>
+      <option value="<%= review.for._id %>" selected><%= review.for.name %></option>
+      <% allEmployees.forEach(employee => { %>
+        <option value="<%= employee._id %>"><%= employee.name %></option>
+      <% }) %>
+    </select>
+  </div>
+  <div class="form-group mt-2" >
+    <label for="requested-review-from">Request feedback from</label>
+    <% allEmployees.forEach(employee => { %>
+      <div class="form-check" id="request-review-from-container">
+          <% if(review.requiredBy.includes(employee._id)){ %>
+            <input class="form-check-input" name="requested-review-from" type="checkbox" value="<%= employee._id %>" checked>
+          <% }else{ %>
+            <input class="form-check-input" name="requested-review-from" type="checkbox" value="<%= employee._id %>">       
+          <% } %>
+        <label class="form-check-label" for="requested-review-from">
+          <%= employee.name %>
+        </label>
+      </div>
+    <% }) %>
+  </div>
+
+  <button type="submit" class="btn btn-primary mt-3">Submit</button>
+</form>
+<%- include("../partials/footer") %>
