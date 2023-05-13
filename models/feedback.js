@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const feedbackSchema = new Schema({
-  text: String,
+  text: { type: String, default: null },
   by: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
   for: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
 });

@@ -85,6 +85,39 @@ router.get("/:id", ensureLoggedIn('/users/login'), function (req, res, next) {
     
 });
 
+router.get("/:id/add", ensureLoggedIn('/users/login'), function (req, res, next) {
+
+
+    const id = req.params.id;
+
+    Feedback.findById(id).populate("for").exec(function (err, review) {
+        if (err) {
+            return next(err);
+        }
+        return res.render("feedbacks/submitTextFeedback", { review, success: req.flash("success"), error: req.flash("error") });
+    });
+    
+});
+
+router.post("/:id/add", ensureLoggedIn('/users/login'), function (req, res, next) {
+
+
+    const id = req.params.id;
+
+    Feedback.findByIdAndUpdate(id,
+        {
+            text: req.body.text
+        },
+        function (err, review) {
+        if (err) {
+            return next(err);
+        }
+        req.flash("success", "Feedback Submited Successfully!")
+        return res.redirect("/feedbacks")
+    });
+    
+});
+
 router.post("/:id", ensureLoggedIn('/users/login'), function (req, res, next) {
     if(!req.user.isAdmin){
         req.flash("error", "You are not authorized to access this page");
@@ -102,7 +135,6 @@ router.post("/:id", ensureLoggedIn('/users/login'), function (req, res, next) {
             if (err) {
                 return next(err);
             }
-        console.log("Executed!")
             
         let requiredBy = Array.isArray(requestedReviewFrom) ? requestedReviewFrom : [requestedReviewFrom]
 

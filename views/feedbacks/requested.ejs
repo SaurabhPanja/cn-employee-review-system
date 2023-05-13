@@ -14,7 +14,11 @@
         <td><%= index + 1 %></td>
         <td><%= feedback.for.username %></td>
         <td>
-            <a class="btn btn-success" href="/feedbacks/<%= feedback._id %>">Add</a>
+          <% if(feedback.text){ %>
+            <button class="btn btn-primary disabled">Submitted</button>
+          <% }else{ %>
+            <a class="btn btn-success" href="/feedbacks/<%= feedback._id %>/add">Add</a>
+          <% } %>
         </td>
       </tr>
       <% }) %>
