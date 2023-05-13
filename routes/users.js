@@ -147,7 +147,7 @@ router.get("/feedbacks", ensureLoggedIn("/users/login") ,function (req, res, nex
       return next(err);
     }
     const { requestedFeedback } = user;
-
+    console.log(requestedFeedback)
     return res.render("feedbacks/requested", { requestedFeedback , success: false, error: false })
   }
   );
