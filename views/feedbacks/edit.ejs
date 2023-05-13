@@ -15,9 +15,9 @@
     <% allEmployees.forEach(employee => { %>
       <div class="form-check" id="request-review-from-container">
           <% if(employee.requestedFeedback.includes(review._id)){ %>
-            <input class="form-check-input" name="requested-review-from" type="checkbox" value="<%= employee._id %>" checked>
+            <input class="form-check-input" name="requested-review-from" type="checkbox" value="<%= employee._id %>" checked >
           <% }else{ %>
-            <input class="form-check-input" name="requested-review-from" type="checkbox" value="<%= employee._id %>">       
+            <input class="form-check-input" name="requested-review-from" type="checkbox" value="<%= employee._id %>" >       
           <% } %>
         <label class="form-check-label" for="requested-review-from">
           <%= employee.name %>

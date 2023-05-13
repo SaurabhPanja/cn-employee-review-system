@@ -90,20 +90,39 @@ router.post("/:id", ensureLoggedIn('/users/login'), function (req, res, next) {
         req.flash("error", "You are not authorized to access this page");
         return res.redirect("/feedbacks");
     }
-
-    const id = req.params.id;
+    const feedbackId = req.params.id;
     const requestedReviewFrom = req.body["requested-review-from"]
     const reviewFor = req.body["review-for"]
-
-    Feedback.findByIdAndUpdate(id,
+    
+    Feedback.findByIdAndUpdate(feedbackId,
         {
             for: reviewFor,
-            requiredBy: Array.isArray(requestedReviewFrom) ? requestedReviewFrom : [requestedReviewFrom]
         },
         function (err, review) {
-        if (err) {
-            return next(err);
-        }
+            if (err) {
+                return next(err);
+            }
+        console.log("Executed!")
+            
+        let requiredBy = Array.isArray(requestedReviewFrom) ? requestedReviewFrom : [requestedReviewFrom]
+
+        requiredBy.forEach(userId=>{
+            User.findById(userId, function(err, user){
+                if(err){
+                    return next(err)
+                }
+                if(user){
+                    const alreadyRequestedFeedback = user.requestedFeedback
+                    if(alreadyRequestedFeedback.includes(feedbackId)){
+        
+                    }else{
+                        user.requestedFeedback.push(feedbackId)
+                        user.save()
+                    }
+                }
+            })
+        })
+
 
         req.flash("success", "Your review has been updated successfully!")
 
