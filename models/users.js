@@ -7,7 +7,7 @@ const userSchema = new Schema({
   password: String,
   name: String,
   isAdmin: { type: Boolean, default: false },
-  requestedReviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'performanceReview' }],
+  requestedFeedback: [{ type: mongoose.Schema.Types.ObjectId, ref: 'feedback' }],
 });
 
 userSchema.plugin(passportLocalMongoose);

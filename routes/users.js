@@ -14,7 +14,7 @@ passport.deserializeUser(User.deserializeUser());
 router.get("/", ensureLoggedIn("/users/login"), function (req, res, next) {
 
   if(!req.user.isAdmin){
-    return res.redirect("/users/feedbacks/");
+    return res.redirect("/feedbacks/");
   }
   User.find({}, function (err, users) {
     if (err) {
@@ -23,7 +23,7 @@ router.get("/", ensureLoggedIn("/users/login"), function (req, res, next) {
     const success = req.flash("success");
     const error = req.flash("error");
     const currentUser = req.user;
-  
+    
     res.render("users/users", { users, currentUser, success: success, error: error });
   });
 });
@@ -129,5 +129,29 @@ router.post("/:id/delete", function (req, res, next) {
   }
   );
 });
+
+router.get("/feedbacks", ensureLoggedIn("/users/login") ,function (req, res, next) {
+
+  const currentUserId = req.user._id
+  User.findById(currentUserId).populate({
+    path : 'requestedFeedback',
+    populate : {
+      path : 'for'
+    }
+  })
+  .exec(function (
+    err,
+    user
+  ) {
+    if (err) {
+      return next(err);
+    }
+    const { requestedFeedback } = user;
+
+    return res.render("feedbacks/requested", { requestedFeedback , success: false, error: false })
+  }
+  );
+});
+
 
 module.exports = router;

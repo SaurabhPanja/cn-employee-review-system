@@ -5,7 +5,6 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">reviewFor</th>
-        <th scope="col">Requested From</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
@@ -13,14 +12,9 @@
       <% reviews.forEach((review, index) => { %>
       <tr>
         <td><%= index + 1 %></td>
-        <td><%= review.for.name %></td>
+        <td><%= review.for.username %></td>
         <td>
-            <% review.requiredBy.forEach(requiredBy=>{ %>
-                <%= requiredBy.name %>, 
-            <% }) %>
-        </td>
-        <td>
-            <a class="btn btn-primary" href="/performanceReviews/<%= review._id %>">Edit</a>
+            <a class="btn btn-primary" href="/feedbacks/<%= review._id %>">Edit</a>
         </td>
       </tr>
       <% }) %>

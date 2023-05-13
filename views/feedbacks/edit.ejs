@@ -1,10 +1,10 @@
 <%- include('../partials/header') %>
-<form action="/performanceReviews" method="post" class="max-w-500 m-auto mt-5">
+<form action="/feedbacks/<%= review._id %>" method="post" class="max-w-500 m-auto mt-5">
   <h1>Create a performace Review</h1>
   <div class="form-group mt-2">
     <label for="review-for">Feedback for</label>
     <select name="review-for" class="form-control" required>
-      <option value="" disabled selected>Select an employee</option>
+      <option value="<%= review.for._id %>" selected><%= review.for.name %></option>
       <% allEmployees.forEach(employee => { %>
         <option value="<%= employee._id %>"><%= employee.name %></option>
       <% }) %>
@@ -14,7 +14,11 @@
     <label for="requested-review-from">Request feedback from</label>
     <% allEmployees.forEach(employee => { %>
       <div class="form-check" id="request-review-from-container">
-    <input class="form-check-input" name="requested-review-from" type="checkbox" value="<%= employee._id %>" >
+          <% if(employee.requestedFeedback.includes(review._id)){ %>
+            <input class="form-check-input" name="requested-review-from" type="checkbox" value="<%= employee._id %>" checked>
+          <% }else{ %>
+            <input class="form-check-input" name="requested-review-from" type="checkbox" value="<%= employee._id %>">       
+          <% } %>
         <label class="form-check-label" for="requested-review-from">
           <%= employee.name %>
         </label>

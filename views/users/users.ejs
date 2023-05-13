@@ -11,23 +11,25 @@
     </thead>
     <tbody>
       <% users.forEach((user) => { %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.username %></td>
-        <td><%= user.isAdmin ? "Admin" : "Employee" %></td>
-        <% if(currentUser != user){ %>
-          <td>
-            <form action="/users/<%= user._id %>" method="post">
-                <input type="hidden" name="isAdmin" value="<%= !user.isAdmin %>">
-                <input type="submit" class="btn <%= user.isAdmin ? 'btn-warning' : 'btn-primary' %>" value="<%= user.isAdmin ? 'Make Employee' : 'Make Admin' %>">
-            </form>
-            <form action="/users/<%= user._id %>/delete" method="post">
-              <input type="hidden" name="isAdmin" value="<%= !user.isAdmin %>">
-              <input type="submit" class="btn btn-danger" value="Delete">
-          </form>
-        </td>
-          <% } %>
-      </tr>
+        <% if(user.username != currentUser.username){%>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.username %></td>
+            <td><%= user.isAdmin ? "Admin" : "Employee" %></td>
+            <% if(currentUser != user){ %>
+              <td>
+                <form action="/users/<%= user._id %>" method="post">
+                    <input type="hidden" name="isAdmin" value="<%= !user.isAdmin %>">
+                    <input type="submit" class="btn <%= user.isAdmin ? 'btn-warning' : 'btn-primary' %>" value="<%= user.isAdmin ? 'Make Employee' : 'Make Admin' %>">
+                </form>
+                <form action="/users/<%= user._id %>/delete" method="post">
+                  <input type="hidden" name="isAdmin" value="<%= !user.isAdmin %>">
+                  <input type="submit" class="btn btn-danger" value="Delete">
+              </form>
+            </td>
+              <% } %>
+          </tr>
+        <% } %>
       <% }) %>
     </tbody>
   </table>
